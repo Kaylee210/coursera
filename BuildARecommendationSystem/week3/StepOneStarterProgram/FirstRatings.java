@@ -138,13 +138,13 @@ public class FirstRatings {
     /*
      * Load rater file
      */
-    public ArrayList<Rater> loadRaters(String filename){
+    public ArrayList<EfficientRater> loadRaters(String filename){
         
         // Make ArrayList<Movie>
-        ArrayList<Rater> fData = new ArrayList<Rater>();
+        ArrayList<EfficientRater> fData = new ArrayList<EfficientRater>();
         
         // Read file
-        FileResource fr = new FileResource(filename);
+        FileResource fr = new FileResource("data/" +filename);
         CSVParser parser = fr.getCSVParser();
         
         // Get each data
@@ -167,9 +167,9 @@ public class FirstRatings {
             
             if(flg == -1){
                 // There isn't already
-                    Rater rater = new Rater(tmpRaterID);
-                    rater.addRating(tmpItem, Double.parseDouble(tmpRating));
-                    fData.add(rater);
+                    EfficientRater eRater = new EfficientRater(tmpRaterID);
+                    eRater.addRating(tmpItem, Double.parseDouble(tmpRating));
+                    fData.add(eRater);
             }
             
         }
@@ -187,7 +187,7 @@ public class FirstRatings {
         String filename = "data/ratings.csv";
         
         // Call loadMovies method
-        ArrayList<Rater> rData = loadRaters(filename);
+        ArrayList<EfficientRater> rData = loadRaters(filename);
         
         //  Print the total number of raters
         System.out.println("Total number of rater id is " + rData.size());
@@ -212,7 +212,7 @@ public class FirstRatings {
         //String aID = "2";
         String aID = "193";
         int size = 0;
-        for(Rater r : rData){
+        for(EfficientRater r : rData){
             String tmpID = r.getID();
             if(aID.equals(tmpID)){
                 size = r.numRatings();
@@ -224,7 +224,7 @@ public class FirstRatings {
         // find the maximum number of ratings by any rater
         int max = 0;
         ArrayList<String> rMaxList = new ArrayList<String>();
-        for(Rater r : rData){
+        for(EfficientRater r : rData){
             int tmpSize = r.numRatings();
             if(tmpSize > max){
                 rMaxList.clear();
@@ -241,7 +241,7 @@ public class FirstRatings {
         // find the number of ratings a particular movie
         String pMovieID = "1798709";
         ArrayList<Double> pMovieIDRating = new ArrayList<Double>();
-        for(Rater r : rData){
+        for(EfficientRater r : rData){
             double result = r.getRating(pMovieID);
             if(result != -1){
                 pMovieIDRating.add(result);
@@ -251,7 +251,7 @@ public class FirstRatings {
         
         // Determine how many different movies have been rated by all these raters.
         ArrayList<String> movieList =  new ArrayList<String>();
-        for(Rater r : rData){
+        for(EfficientRater r : rData){
             ArrayList<String> tmpMovieList = r.getItemsRated();
             for(String m : tmpMovieList){
                if(!movieList.contains(m)){

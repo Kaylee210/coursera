@@ -1,37 +1,28 @@
 
 /**
- * Write a description of SecondRatings here.
+ * クラス ThirdRatings の注釈をここに書きます.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author (あなたの名前)
+ * @version (バージョン番号もしくは日付)
  */
-
 import java.util.*;
 
-public class SecondRatings {
-    private ArrayList<Movie> myMovies;
+public class ThirdRatings {
     private ArrayList<EfficientRater> myRaters;
     
-    public SecondRatings() {
+    public ThirdRatings() {
         // default constructor
-        this("ratedmoviesfull.csv", "ratings.csv");
+        this("ratings.csv");
     }
     
-    public SecondRatings(String moviefile, String ratingsfile) {
+    public ThirdRatings(String ratingsfile) {
         // Read in all the movie and ratings
         FirstRatings fRating = new FirstRatings();
-        // store them in the two private ArrayList variables
-        myMovies = fRating.loadMovies(moviefile);
+        // store them in the private ArrayList variable
         myRaters = fRating.loadRaters(ratingsfile);
     }
     
-    /*
-     * Get the number of movies 
-     * that were read in and stored in the ArrayList of type Movie
-     */
-    public int getMovieSize(){
-        return myMovies.size(); 
-    }
+    
     
     /*
      * Get the number of raters 
@@ -75,18 +66,16 @@ public class SecondRatings {
     public ArrayList<Rating> getAverageRatings(int minimalRaters){
         
         ArrayList<Rating> rating = new ArrayList<Rating>();
-        
+        ArrayList<String> movies = MovieDatabase.filterBy(new TrueFilter());
         // Check all movies
-        for(Movie m: myMovies){
-            // Get movie id
-            String mID = m.getID();
+        for(String id : movies){
             // Check if the number of rater is higher or not than minimalRaters
             // Call getAverageByID method
-            double result = getAverageByID (mID, minimalRaters);
+            double result = getAverageByID (id, minimalRaters);
             if(result != 0.0){
                 // the number of rater is higher than minimalRaters
                 // Make Rating object
-                Rating aRating = new Rating(mID, result);
+                Rating aRating = new Rating(id, result);
                 // Add to rating arraylist
                 rating.add(aRating);
             }
@@ -96,45 +85,31 @@ public class SecondRatings {
     }
     
     /*
-     * Get specific id's movie title
+     * Get rating list least minimalRaters ratings 
+     * and satisfies the filter criteria
      */
-    public String getTitle(String id){
+    public ArrayList<Rating> getAverageRatingsByFilter(int minimalRaters, Filter filterCriteria){
         
-        // Check all movies
-        for(Movie m: myMovies){
-            // get id
-            String tmpID = m.getID();
-            
-            // Check if tmpID matches id
-            if(tmpID.equals(id)){
-                // return title
-                return m.getTitle();
+        ArrayList<Rating> rating = new ArrayList<Rating>();
+        
+        // do filter
+        // Get movie id list satisfied filter
+        ArrayList<String> list = MovieDatabase.filterBy(filterCriteria);
+        
+        for(String id : list){
+            double result = getAverageByID (id, minimalRaters);
+            if(result != 0.0){
+                // the number of rater is higher than minimalRaters
+                // Make Rating object
+                Rating aRating = new Rating(id, result);
+                // Add to rating arraylist
+                rating.add(aRating);
             }
         }
         
-        // If there is no movie id matched with id
-        return "the ID was not found";
-    }
-    
-    /*
-     * Get the movie ID matched with title
-     */
-    public String getID(String title){
-    
-        // Check all movies
-        for(Movie m: myMovies){
-            // get title
-            String tmpTitle = m.getTitle();
-            
-            // Check if tmpTitle matches title
-            if(tmpTitle.equals(title)){
-                // return title
-                return m.getID();
-            }
-        }
-        
-        // If there is no movie id matched with id
-        return "NO SUCH TITLE.";
+        return rating;
         
     }
+    
 }
+
