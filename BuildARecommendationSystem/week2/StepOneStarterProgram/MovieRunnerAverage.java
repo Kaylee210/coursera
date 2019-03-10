@@ -33,7 +33,7 @@ public class MovieRunnerAverage {
     }
     
     /*
-     * Get the index of minimum ratin value from especially point. 
+     * Get the index of minimum ratin value from specific point. 
      */
     private int getSmallestAverage(ArrayList<Rating> rating, int from){
         
@@ -71,7 +71,7 @@ public class MovieRunnerAverage {
         String rfilename = "data/ratings_short.csv";
         SecondRatings secondRating = new SecondRatings(mfilename,  rfilename);
         
-        // Get movie id for especially title
+        // Get movie id for specific title
         String title = "The Godfather";
         String id = secondRating.getID(title);
         // Get average
@@ -94,7 +94,7 @@ public class MovieRunnerAverage {
         String rfilename = "data/ratings.csv";
         SecondRatings secondRating = new SecondRatings(mfilename,  rfilename);
         
-        // Get movie id for especially title
+        // Get movie id for specific title
         String title1 = "The Maze Runner";
         String id1 = secondRating.getID(title1);
         // Get average
@@ -106,7 +106,7 @@ public class MovieRunnerAverage {
             }
         }
         
-        // Get movie id for especially title
+        // Get movie id for specific title
         String title2 = "Moneyball";
         String id2 = secondRating.getID(title2);
         // Get average
@@ -118,7 +118,7 @@ public class MovieRunnerAverage {
             }
         }
         
-        // Get movie id for especially title
+        // Get movie id for specific title
         String title3 = "Vacation";
         String id3 = secondRating.getID(title3);
         // Get average

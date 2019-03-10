@@ -96,7 +96,7 @@ public class SecondRatings {
     }
     
     /*
-     * Get especially id's movie title
+     * Get specific id's movie title
      */
     public String getTitle(String id){
         
