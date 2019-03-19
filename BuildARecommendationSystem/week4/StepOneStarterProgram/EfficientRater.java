@@ -8,7 +8,7 @@
 
 import java.util.*;
 
-public class EfficientRater {
+public class EfficientRater implements Rater {
 
     private String myID; // rater id
     // The key in the HashMap is a movie ID, 
